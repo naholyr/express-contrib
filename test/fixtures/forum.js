@@ -8,21 +8,21 @@ exports.new = function(req, res){
 };
 
 exports.create = function(req, res){
-  res.send('create forum ' + req.body.name);
+  res.send('create forum');
 };
 
 exports.show = function(req, res){
-  res.send('show forum ' + this.id);
+  res.send('show forum ' + req.params.id);
 };
 
 exports.edit = function(req, res){
-  res.send('edit forum ' + this.id);
+  res.send('edit forum ' + req.params.id);
 };
 
 exports.update = function(req, res){
-  res.send('update forum ' + this.id + ' with ' + req.body.name);
+  res.send('update forum ' + req.params.id);
 };
 
 exports.destroy = function(req, res){
-  res.send('destroy forum ' + this.id);
+  res.send('destroy forum ' + req.params.id);
 };
