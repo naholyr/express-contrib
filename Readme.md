@@ -47,6 +47,40 @@ Which outputs HTML as shown below:
       </ul>
     </div>
 
+## express-namespace
+
+The _express-namespace_ module provides namespace capabilities to express. The example below may respond to any of the following requests:
+
+    GET /forum/12
+    GET /forum/12/view
+    GET /forum/12/edit
+    GET /forum/12/thread/5
+    DELETE /forum/12
+
+To utilize this module simply `require('express-contrib')`, or if you prefer to __only__ utilize namespacing `require('express-namespace')`, and `app.namespace()` will automatically be available to you.
+
+Usage is as follows, simply pass a callback function and route to the method, after each callback invocation is complete, the namespace is restored to it's previous state.
+
+    app.namespace('/forum/:id', function(){
+      app.get('/(view)?', function(req, res){
+        res.send('GET forum ' + req.params.id);
+      });
+      
+      app.get('/edit', function(req, res){
+        res.send('GET forum ' + req.params.id + ' edit page');
+      });
+
+      app.namespace('/thread', function(){
+        app.get('/:tid', function(req, res){
+          res.send('GET forum ' + req.params.id + ' thread ' + req.params.tid);
+        });
+      });
+
+      app.del('/', function(req, res){
+        res.send('DELETE forum ' + req.params.id);
+      });
+    });
+
 ## Contributors
 
 The following are the major contributors of Express Contrib (in no specific order).
