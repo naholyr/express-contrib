@@ -81,6 +81,65 @@ Usage is as follows, simply pass a callback function and route to the method, af
       });
     });
 
+## express-resource
+
+Provides resourceful routing, for example a module or object can be defined as shown in the example below, where all methods or "actions" are optional:
+
+    
+    exports.index = function(req, res){
+      res.send('forum index');
+    };
+
+    exports.new = function(req, res){
+      res.send('new forum');
+    };
+
+    exports.create = function(req, res){
+      res.send('create forum');
+    };
+
+    exports.show = function(req, res){
+      res.send('show forum ' + req.params.id);
+    };
+
+    exports.edit = function(req, res){
+      res.send('edit forum ' + req.params.id);
+    };
+
+    exports.update = function(req, res){
+      res.send('update forum ' + req.params.id);
+    };
+
+    exports.destroy = function(req, res){
+      res.send('destroy forum ' + req.params.id);
+    };
+
+The _id_ option can be specified to prevent collisions:
+
+     exports.id = 'uid';
+    
+     exports.destroy = function(req, res) {
+       res.send('destroy user ' + req.params.uid);
+     };
+
+The `app.resource()` method will create and return a new `Resource`:
+
+    var contrib = require('express-contrib')
+      , Resource = contrib.Resource
+      , app = express.createServer();
+    
+    app.resource('forums', require('./forum'));
+
+Actions are then mapped as follows (by default):
+
+    GET /forums           ->  index
+    GET /forums/new       ->  new
+    POST /forums/         ->  create
+    GET /forums/:id       ->  show
+    GET /forums/:id/edit  ->  edit
+    PUT /forums/:id       ->  update
+    GET /forums/:id       ->  destroy
+
 ## Contributors
 
 The following are the major contributors of Express Contrib (in no specific order).
