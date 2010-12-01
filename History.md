@@ -1,4 +1,9 @@
 
+0.2.0 / 2010-11-30 
+==================
+
+  * Added `express-resource` for resourceful routing support
+
 0.1.0 / 2010-11-30 
 ==================
 
