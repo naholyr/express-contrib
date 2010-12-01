@@ -132,13 +132,13 @@ The `app.resource()` method will create and return a new `Resource`:
 
 Actions are then mapped as follows (by default):
 
-    GET /forums           ->  index
-    GET /forums/new       ->  new
-    POST /forums/         ->  create
-    GET /forums/:id       ->  show
-    GET /forums/:id/edit  ->  edit
-    PUT /forums/:id       ->  update
-    GET /forums/:id       ->  destroy
+    GET  /forums           ->  index
+    GET  /forums/new       ->  new
+    POST /forums           ->  create
+    GET  /forums/:id       ->  show
+    GET  /forums/:id/edit  ->  edit
+    PUT  /forums/:id       ->  update
+    GET  /forums/:id       ->  destroy
 
 __NOTE:__ this functionality will surely grow with time, and as data store clients evolve we can provide close integration.
 
