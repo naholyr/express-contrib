@@ -45,5 +45,24 @@ module.exports = {
     assert.response(app,
       { url: '/forums/5', method: 'DELETE' },
       { body: 'destroy forum 5' });
+  },
+  
+  'test app.resource() id option': function(assert){
+    var app = express.createServer();
+
+    app.resource('users', {
+      id: 'uid',
+      show: function(req, res){
+        res.send(req.params.uid);
+      }
+    });
+  
+    assert.response(app,
+      { url: '/users' },
+      { status: 404 });
+    
+    assert.response(app,
+      { url: '/users/10' },
+      { body: '10' });
   }
 };
