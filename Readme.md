@@ -81,6 +81,8 @@ Usage is as follows, simply pass a callback function and route to the method, af
       });
     });
 
+You can also access the current namespace via `app.currentNamespace`;
+
 ## express-resource
 
 Provides resourceful routing, for example a module or object can be defined as shown in the example below, where all methods or "actions" are optional:
