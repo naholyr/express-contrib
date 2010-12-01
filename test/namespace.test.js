@@ -105,5 +105,20 @@ module.exports = {
     assert.response(app,
       { url: '/two' },
       { body: 'GET two' });
+  },
+  
+  'test fn.route': function(assert){
+    var app = express.createServer();
+
+    app.namespace('/user/:id', function(){
+      app.get('/', function handler(req, res){
+        assert.equal('/user/:id', handler.namespace);
+        res.send(200);
+      });
+    });
+
+    assert.response(app,
+      { url: '/user/12' },
+      { body: 'OK' });
   }
 };
