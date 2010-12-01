@@ -59,6 +59,10 @@ module.exports = {
         res.send('GET forum ' + req.params.id);
       });
       
+      app.get('/edit', function(req, res){
+        res.send('GET forum ' + req.params.id + ' edit page');
+      });
+      
       app.namespace('/thread/:tid', function(){
         app.get('/', function(req, res){
           res.send('GET forum ' + req.params.id + ' thread ' + req.params.tid);
@@ -77,6 +81,10 @@ module.exports = {
     assert.response(app,
       { url: '/forum/1' },
       { body: 'GET forum 1' });
+    
+    assert.response(app,
+      { url: '/forum/1/edit' },
+      { body: 'GET forum 1 edit page' });
     
     assert.response(app,
       { url: '/forum/1/thread/50' },
