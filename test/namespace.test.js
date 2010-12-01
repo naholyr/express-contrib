@@ -86,5 +86,53 @@ module.exports = {
     assert.response(app,
       { url: '/two' },
       { body: 'GET two' });
+  },
+  
+  'test app.namespace(str, fn) nesting': function(assert){
+    var app = express.createServer();
+
+    app.get('/one', function(req, res){
+      res.send('GET one');
+    });
+
+    app.namespace('/forum/:id', function(){
+      app.get('/', function(req, res){
+        res.send('GET forum ' + req.params.id);
+      });
+      
+      app.namespace('/thread/:tid', function(){
+        app.get('/', function(req, res){
+          res.send('GET forum ' + req.params.id + ' thread ' + req.params.tid);
+        })
+      });
+      
+      app.del('/', function(req, res){
+        res.send('DELETE forum ' + req.params.id);
+      });
+    });
+    
+    app.get('/two', function(req, res){
+      res.send('GET two');
+    });
+
+    assert.response(app,
+      { url: '/forum/1' },
+      { body: 'GET forum 1' });
+    
+    assert.response(app,
+      { url: '/forum/1/thread/50' },
+      { body: 'GET forum 1 thread 50' });
+  
+    assert.response(app,
+      { url: '/forum/2', method: 'DELETE' },
+      { body: 'DELETE forum 2' });
+    
+    assert.response(app,
+      { url: '/one' },
+      { body: 'GET one' });
+    
+    assert.response(app,
+      { url: '/two' },
+      { body: 'GET two' });
   }
 };
