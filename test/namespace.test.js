@@ -7,16 +7,15 @@ var express = require('express')
   , contrib = require('express-contrib');
 
 module.exports = {
-  'test contrib export': function(assert){
-    assert.equal(contrib.route, route);
-  },
-
   'test app.namespace(str, fn)': function(assert){
     var app = express.createServer();
 
     app.get('/one', function(req, res){
       res.send('GET one');
     });
+
+    assert.equal(app.namespace('/user'), app);
+    assert.equal(app.namespace('/user', function(){}), app);
 
     app.namespace('/user', function(){
       app.get('/:id', function(req, res){
