@@ -140,6 +140,8 @@ Actions are then mapped as follows (by default):
     PUT /forums/:id       ->  update
     GET /forums/:id       ->  destroy
 
+__NOTE:__ this functionality will surely grow with time, and as data store clients evolve we can provide close integration.
+
 ## Contributors
 
 The following are the major contributors of Express Contrib (in no specific order).
