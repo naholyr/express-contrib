@@ -62,13 +62,13 @@ module.exports = {
       app.get('/edit', function(req, res){
         res.send('GET forum ' + req.params.id + ' edit page');
       });
-      
-      app.namespace('/thread/:tid', function(){
-        app.get('/', function(req, res){
+
+      app.namespace('/thread', function(){
+        app.get('/:tid', function(req, res){
           res.send('GET forum ' + req.params.id + ' thread ' + req.params.tid);
-        })
+        });
       });
-      
+
       app.del('/', function(req, res){
         res.send('DELETE forum ' + req.params.id);
       });
