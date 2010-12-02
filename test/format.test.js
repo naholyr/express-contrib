@@ -54,7 +54,7 @@ module.exports = {
     assert.response(app,
       { url: '/user/1.html' },
       { body: '<h1>tj holowaychuk</h1>'
-      , headers: { 'Content-Type': 'text/html' } });
+      , headers: { 'Content-Type': 'text/html; charset=utf-8' } });
 
     assert.response(app,
       { url: '/user/1.foo' },
@@ -86,7 +86,7 @@ module.exports = {
       assert.response(app,
         { url: '/forum/12.html' },
         { body: '<h1>Forum Movies</h1>'
-        , headers: { 'Content-Type': 'text/html' }});
+        , headers: { 'Content-Type': 'text/html; charset=utf-8' }});
 
       assert.response(app,
         { url: '/forum/12.xml' },
