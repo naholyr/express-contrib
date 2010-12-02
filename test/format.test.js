@@ -120,7 +120,7 @@ module.exports = {
     assert.response(app,
       { url: '/user/1', headers: { Accept: 'text/html' }},
       { body: '<h1>tj holowaychuk</h1>'
-      , headers: { 'Content-Type': 'text/html' } });
+      , headers: { 'Content-Type': 'text/html; charset=utf-8' } });
 
     // Our default is .json in this case,
     // because Accept is not set
@@ -150,6 +150,6 @@ module.exports = {
     assert.response(app,
       { url: '/user/1.html' },
       { body: '<h1>tj holowaychuk</h1>'
-      , headers: { 'Content-Type': 'text/html' } });
+      , headers: { 'Content-Type': 'text/html; charset=utf-8' } });
   }
 }
