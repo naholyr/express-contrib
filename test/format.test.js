@@ -22,6 +22,17 @@ module.exports = {
       res.format('.html', function(){
         res.send('<h1>' + user.name.first + ' ' + user.name.last + '</h1>');
       });
+      
+      // xml
+      res.format('.xml', function(){
+        console.log(res.headers);
+        res.writeHead(200, res.headers);
+        res.write('<user>');
+        res.write('  <first>' + user.name.first + '</first>');
+        res.write('  <last>' + user.name.last + '</last>');
+        res.write('</user>');
+        res.end();
+      });
 
       // default
       res.format(function(){
@@ -29,6 +40,11 @@ module.exports = {
         res.send(user.name.first + ' ' + user.name.last);
       });
     });
+
+    assert.response(app,
+      { url: '/user/1.xml' },
+      { body: 'asdf'
+      , headers: { 'Content-Type': 'application/xml' }});
 
     assert.response(app,
       { url: '/user/1.json' },
