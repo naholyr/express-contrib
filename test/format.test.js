@@ -77,7 +77,7 @@ module.exports = {
       res.end();
     }
 
-    app.get('/forum/:fid', function(req, res){
+    app.get('/forum/:fid.:format?', function(req, res){
       var forum = { title: 'Movies' };
       
       res.format('.xml', xml, forum);
@@ -136,7 +136,7 @@ module.exports = {
       res.send('<h1>' + obj.name.first + ' ' + obj.name.last + '</h1>');
     });
 
-    app.get('/user/:id', function(req, res){
+    app.get('/user/:id.:format?', function(req, res){
       var user = { name: { first: 'tj', last: 'holowaychuk' }};
       res.format('.json', user);
       res.format('.html', user);
