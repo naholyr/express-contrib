@@ -64,11 +64,11 @@ module.exports = {
   'test .format() args': function(assert){
     var app = express.createServer();
     
-    function xml(req, res, obj) {
+    function xml(req, res, next, obj) {
       res.send('<title>' + obj.title + '</title>');
     }
 
-    function html(req, res, obj, title) {
+    function html(req, res, next, obj, title) {
       res.writeHead(200, res.headers);
       res.write('<h1>' + title);
       res.write(' ' + obj.title);
@@ -131,7 +131,7 @@ module.exports = {
   'test .format() registered formatters': function(assert){
     var app = express.createServer();
 
-    app.format('.html', function(req, res, obj){
+    app.format('.html', function(req, res, next, obj){
       res.send('<h1>' + obj.name.first + ' ' + obj.name.last + '</h1>');
     });
 
