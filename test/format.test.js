@@ -131,6 +131,7 @@ module.exports = {
   
   'test .format() registered formatters': function(assert){
     var app = express.createServer();
+    app.set('default format', '.json');
 
     app.format('.html', function(req, res, next, obj){
       res.send('<h1>' + obj.name.first + ' ' + obj.name.last + '</h1>');
