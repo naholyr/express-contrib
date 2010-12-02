@@ -43,7 +43,7 @@ module.exports = {
 
     assert.response(app,
       { url: '/user/1.xml' },
-      { body: 'asdf'
+      { body: '<user>  <first>tj</first>  <last>holowaychuk</last></user>'
       , headers: { 'Content-Type': 'application/xml' }});
 
     assert.response(app,
