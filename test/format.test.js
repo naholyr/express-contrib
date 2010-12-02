@@ -10,7 +10,9 @@ module.exports = {
   'test .format() extensions': function(assert){
     var app = express.createServer();
 
-    app.get('/user/:id', function(req, res){
+    // TODO: remove need for :.format?
+
+    app.get('/user/:id.:format?', function(req, res){
       var user = { name: { first: 'tj', last: 'holowaychuk' }};
       
       // json
@@ -18,9 +20,9 @@ module.exports = {
         res.send(user);
       });
 
-      // html
-      res.format('.html', function(){
-        res.send('<h1>' + user.name.first + ' ' + user.name.last + '</h1>');
+      // text
+      res.format('.txt', function(){
+        res.send(user.name.first + ' ' + user.name.last);
       });
       
       // xml
@@ -35,8 +37,7 @@ module.exports = {
 
       // default
       res.format(function(){
-        res.header('Content-Type', 'text/plain');
-        res.send(user.name.first + ' ' + user.name.last);
+        res.send('<h1>' + user.name.first + ' ' + user.name.last + '</h1>');
       });
     });
 
