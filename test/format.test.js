@@ -25,7 +25,6 @@ module.exports = {
       
       // xml
       res.format('.xml', function(){
-        console.log(res.headers);
         res.writeHead(200, res.headers);
         res.write('<user>');
         res.write('  <first>' + user.name.first + '</first>');
@@ -64,21 +63,24 @@ module.exports = {
   
   'test .format() args': function(assert){
     var app = express.createServer();
+    
+    function xml(req, res, obj) {
+      res.send('<title>' + obj.title + '</title>');
+    }
+
+    function html(req, res, obj, title) {
+      res.writeHead(200, res.headers);
+      res.write('<h1>' + title);
+      res.write(' ' + obj.title);
+      res.write('</h1>');
+      res.end();
+    }
 
     app.get('/forum/:fid', function(req, res){
       var forum = { title: 'Movies' };
       
-      res.format('.xml', function(obj, fn){
-        fn('<title>' + forum.title + '</title>');
-      });
-
-      res.format('.html', function(){
-        this.writeHead(200, this.headers);
-        this.write('<h1>Forum');
-        this.write(' ' + forum.title);
-        this.write('</h1>');
-        this.end();
-      });
+      res.format('.xml', xml, forum);
+      res.format('.html', html, forum, 'Movie');
 
       assert.response(app,
         { url: '/forum/12.html' },
@@ -126,11 +128,11 @@ module.exports = {
       { body: '{"name":{"first":"tj","last":"holowaychuk"}}' });
   },
   
-  'test .format() automatic': function(assert){
+  'test .format() registered formatters': function(assert){
     var app = express.createServer();
 
-    app.format('.html', function(obj, fn){
-      fn(null, '<h1>' + obj.name.first + ' ' + obj.name.last + '</h1>');
+    app.format('.html', function(req, res, obj){
+      res.send('<h1>' + obj.name.first + ' ' + obj.name.last + '</h1>');
     });
 
     app.get('/user/:id', function(req, res){
