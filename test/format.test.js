@@ -64,7 +64,7 @@ module.exports = {
     assert.response(app,
       { url: '/user/1.txt' },
       { body: 'tj holowaychuk'
-      , headers: { 'Content-Type': 'text/plain' }});
+      , headers: { 'Content-Type': 'text/plain; charset=utf-8' }});
   },
   
   'test .format() args': function(assert){
