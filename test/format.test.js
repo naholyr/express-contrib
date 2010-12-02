@@ -57,6 +57,11 @@ module.exports = {
       , headers: { 'Content-Type': 'text/html; charset=utf-8' } });
 
     assert.response(app,
+      { url: '/user/1', headers: { Accept: 'text/html' }},
+      { body: '<h1>tj holowaychuk</h1>'
+      , headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+    
+    assert.response(app,
       { url: '/user/1' },
       { body: '<h1>tj holowaychuk</h1>'
       , headers: { 'Content-Type': 'text/html; charset=utf-8' } });
