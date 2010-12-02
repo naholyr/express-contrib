@@ -167,7 +167,7 @@ module.exports = {
 
     var names = ['foo', 'bar', 'baz'];
     app.get('/names.:format?', function(req, res){
-      //res.format('json', names);
+      res.format('json', names);
       res.format('txt', names.join(', '));
     });
 
@@ -176,9 +176,9 @@ module.exports = {
       { body: 'foo, bar, baz'
       , headers: { 'Content-Type': 'text/plain; charset=utf-8' }});
 
-    // assert.response(app,
-    //   { url: '/names.json' },
-    //   { body: '["foo","bar","baz"]' });
+    assert.response(app,
+      { url: '/names.json' },
+      { body: '["foo","bar","baz"]' });
 
     assert.response(app,
       { url: '/user/1' },
