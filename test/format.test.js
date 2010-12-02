@@ -90,7 +90,7 @@ module.exports = {
         { body: '<title>Movies</title>'
         , headers: { 'Content-Type': 'application/xml' }});
     });
-  }
+  },
   
   'test .format() Accept': function(assert){
     var app = express.createServer();
