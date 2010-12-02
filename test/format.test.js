@@ -173,7 +173,8 @@ module.exports = {
 
     assert.response(app,
       { url: '/names.txt' },
-      { body: 'foo, bar, baz' });
+      { body: 'foo, bar, baz'
+      , headers: { 'Content-Type': 'text/plain; charset=utf-8' }});
 
     // assert.response(app,
     //   { url: '/names.json' },
