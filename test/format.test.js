@@ -14,7 +14,12 @@ module.exports = {
 
     app.get('/user/:id.:format?', function(req, res){
       var user = { name: { first: 'tj', last: 'holowaychuk' }};
-      
+
+      // default
+      res.format(function(){
+        res.send('<h1>' + user.name.first + ' ' + user.name.last + '</h1>');
+      });
+
       // json
       res.format('.json', function(){
         res.send(user);
@@ -33,11 +38,6 @@ module.exports = {
         res.write('  <last>' + user.name.last + '</last>');
         res.write('</user>');
         res.end();
-      });
-
-      // default
-      res.format(function(){
-        res.send('<h1>' + user.name.first + ' ' + user.name.last + '</h1>');
       });
     });
 
