@@ -146,6 +146,10 @@ module.exports = {
     app.format('.html', function(req, res, next, obj){
       res.send('<h1>' + obj.name.first + ' ' + obj.name.last + '</h1>');
     });
+    
+    app.format('json', function(req, res, next, obj){
+      res.send({ result: obj });
+    });
 
     app.get('/user/:id.:format?', function(req, res){
       var user = { name: { first: 'tj', last: 'holowaychuk' }};
@@ -178,11 +182,11 @@ module.exports = {
 
     assert.response(app,
       { url: '/names.json' },
-      { body: '["foo","bar","baz"]' });
+      { body: '{"result":["foo","bar","baz"]}' });
 
     assert.response(app,
       { url: '/user/1' },
-      { body: '{"name":{"first":"tj","last":"holowaychuk"}}'
+      { body: '{"result":{"name":{"first":"tj","last":"holowaychuk"}}}'
       , headers: { 'Content-Type': 'application/json' }});
     
     assert.response(app,
@@ -192,17 +196,17 @@ module.exports = {
 
     assert.response(app,
       { url: '/users' },
-      { body: '[{"name":"tj"},{"name":"tobi"}]'
+      { body: '{"result":[{"name":"tj"},{"name":"tobi"}]}'
       , headers: { 'Content-Type': 'application/json' }});
 
     assert.response(app,
       { url: '/users', headers: { Accept: 'application/json' }},
-      { body: '[{"name":"tj"},{"name":"tobi"}]'
+      { body: '{"result":[{"name":"tj"},{"name":"tobi"}]}'
       , headers: { 'Content-Type': 'application/json' }});
 
     assert.response(app,
       { url: '/users.json' },
-      { body: '[{"name":"tj"},{"name":"tobi"}]'
+      { body: '{"result":[{"name":"tj"},{"name":"tobi"}]}'
       , headers: { 'Content-Type': 'application/json' }});
 
     assert.response(app,
