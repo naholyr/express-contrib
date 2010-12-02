@@ -152,15 +152,32 @@ module.exports = {
       res.format('.json', user);
       res.format('.html', user);
     });
+    
+    app.get('/users.:format?', function(req, res){
+      var users = [{ name: 'tj' }, { name: 'tobi' }];
+      res.format('.json', users);
+      res.format('.html', function(req, res){
+        var html = '<ul>' +
+          users.map(function(user){
+            return '<li>' + user.name + '</li>';
+          }).join('') + '</ul>';
+        res.send(html);
+      });
+    });
 
     assert.response(app,
       { url: '/user/1' },
       { body: '{"name":{"first":"tj","last":"holowaychuk"}}'
-      , headers: { 'Content-Type': 'application/json' } });
+      , headers: { 'Content-Type': 'application/json' }});
     
     assert.response(app,
       { url: '/user/1.html' },
       { body: '<h1>tj holowaychuk</h1>'
-      , headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+      , headers: { 'Content-Type': 'text/html; charset=utf-8' }});
+    
+    assert.response(app,
+      { url: '/users.html' },
+      { body: '<ul><li>tj</li><li>tobi</li></ul>'
+      , headers: { 'Content-Type': 'text/html; charset=utf-8' }});
   }
 }
