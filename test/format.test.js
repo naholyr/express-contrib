@@ -62,6 +62,36 @@ module.exports = {
       , headers: { 'Content-Type': 'text/plain' } });
   },
   
+  'test .format() args': function(assert){
+    var app = express.createServer();
+
+    app.get('/forum/:fid', function(req, res){
+      var forum = { title: 'Movies' };
+      
+      res.format('.xml', function(obj, fn){
+        fn('<title>' + forum.title + '</title>');
+      });
+
+      res.format('.html', function(){
+        this.writeHead(200, this.headers);
+        this.write('<h1>Forum');
+        this.write(' ' + forum.title);
+        this.write('</h1>');
+        this.end();
+      });
+
+      assert.response(app,
+        { url: '/forum/12.html' },
+        { body: '<h1>Forum Movies</h1>'
+        , headers: { 'Content-Type': 'text/html' }});
+
+      assert.response(app,
+        { url: '/forum/12.xml' },
+        { body: '<title>Movies</title>'
+        , headers: { 'Content-Type': 'application/xml' }});
+    });
+  }
+  
   'test .format() Accept': function(assert){
     var app = express.createServer();
 
