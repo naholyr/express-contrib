@@ -155,7 +155,7 @@ module.exports = {
     
     app.get('/users.:format?', function(req, res){
       var users = [{ name: 'tj' }, { name: 'tobi' }];
-      res.format(users);
+      res.format('.json', users);
       res.format('.html', function(req, res){
         var html = '<ul>' +
           users.map(function(user){
@@ -164,6 +164,20 @@ module.exports = {
         res.send(html);
       });
     });
+
+    var names = ['foo', 'bar', 'baz'];
+    app.get('/names.:format?', function(req, res){
+      //res.format('json', names);
+      res.format('txt', names.join(', '));
+    });
+
+    assert.response(app,
+      { url: '/names.txt' },
+      { body: 'foo, bar, baz' });
+
+    // assert.response(app,
+    //   { url: '/names.json' },
+    //   { body: '["foo","bar","baz"]' });
 
     assert.response(app,
       { url: '/user/1' },
