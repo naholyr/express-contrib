@@ -3,7 +3,7 @@ test:
 	@./support/expresso/bin/expresso \
 		-I support/connect/lib \
 		-I support/ejs \
-		-I support/express \
+		-I support \
 		-I lib
 
 .PHONY: test
