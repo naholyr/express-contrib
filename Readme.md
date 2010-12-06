@@ -144,6 +144,19 @@ Actions are then mapped as follows (by default):
 
 __NOTE:__ this functionality will surely grow with time, and as data store clients evolve we can provide close integration.
 
+## express-configure
+
+Ever wanted to boot your Express app settings using Redis or a similar key/value store? well now it is easy, all you need to do is either `require('express-configure')` or `require('express-contrib')` and callback a function in `configure()`:
+
+    app.configure(function(done){
+      redis.hmget('settings', function(err, obj){
+        for (var key in obj) app.set(key, obj[key]);
+        done();
+      });
+    });
+
+    app.listen(3000);
+
 ## Contributors
 
 The following are the major contributors of Express Contrib (in no specific order).
