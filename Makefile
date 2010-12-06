@@ -4,6 +4,7 @@ test:
 		-I support/connect/lib \
 		-I support/ejs \
 		-I support \
-		-I lib
+		-I lib \
+		--serial
 
 .PHONY: test
