@@ -4,7 +4,7 @@
  */
 
 var express = require('express')
-  , messages = require('express-messages')
+  , messages = require('express-contrib/messages')
   , contrib = require('express-contrib')
   , MemoryStore = require('connect/middleware/session/memory');
 

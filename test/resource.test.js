@@ -4,7 +4,7 @@
  */
 
 var express = require('express')
-  , Resource = require('express-resource')
+  , Resource = require('express-contrib/resource')
   , contrib = require('express-contrib');
 
 module.exports = {
