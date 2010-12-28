@@ -17,7 +17,7 @@ npm:
 
 You may either require the specific module, for example:
 
-    var messages = require('express-messages');
+    var messages = require('express-contrib/messages');
 
 or access via the main _express-contrib_ module which is useful when
 utilizing many of the modules:
@@ -29,7 +29,7 @@ utilizing many of the modules:
 
 The _express-messages_ module provides flash notification rendering. To use simply assign it to a dynamic helper:
 
-    app.dynamicHelpers({ messages: require('express-messages') });
+    app.dynamicHelpers({ messages: require('express-contrib/messages') });
 
 Then in a view you may output the notifications:
 
@@ -57,7 +57,7 @@ The _express-namespace_ module provides namespace capabilities to express. The e
     GET /forum/12/thread/5
     DELETE /forum/12
 
-To utilize this module simply `require('express-contrib')`, or if you prefer to __only__ utilize namespacing `require('express-namespace')`, and `app.namespace()` will automatically be available to you.
+To utilize this module simply `require('express-contrib')`, or if you prefer to __only__ utilize namespacing `require('express-contrib/namespace')`, and `app.namespace()` will automatically be available to you.
 
 Usage is as follows, simply pass a callback function and route to the method, after each callback invocation is complete, the namespace is restored to it's previous state.
 
