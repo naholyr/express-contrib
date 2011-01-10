@@ -55,7 +55,7 @@ module.exports = {
     });
 
     app.namespace('/forum/:id', function(){
-      app.get('/(view)?', function(req, res){
+      app.get('/', function(req, res){
         res.send('GET forum ' + req.params.id);
       });
       
@@ -80,10 +80,6 @@ module.exports = {
 
     assert.response(app,
       { url: '/forum/1' },
-      { body: 'GET forum 1' });
-    
-    assert.response(app,
-      { url: '/forum/1/view' },
       { body: 'GET forum 1' });
     
     assert.response(app,
