@@ -1,4 +1,11 @@
 
+0.3.2 / 2011-01-10 
+==================
+
+  * Fixed _namespace_ for latest connect
+  * Fixed; using `express.router.methods`
+    in namespace to expose them all
+
 0.3.1 / 2011-01-06 
 ==================
 
