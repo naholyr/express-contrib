@@ -50,6 +50,10 @@ module.exports = {
   'test app.namespace(str, fn) nesting': function(assert){
     var app = express.createServer();
 
+    function middleware(req, res, next) {
+      next();
+    }
+
     app.get('/one', function(req, res){
       res.send('GET one');
     });
@@ -64,7 +68,7 @@ module.exports = {
       });
 
       app.namespace('/thread', function(){
-        app.get('/:tid', function(req, res){
+        app.get('/:tid', middleware, function(req, res){
           res.send('GET forum ' + req.params.id + ' thread ' + req.params.tid);
         });
       });
