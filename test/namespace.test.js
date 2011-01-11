@@ -68,7 +68,7 @@ module.exports = {
       });
 
       app.namespace('/thread', function(){
-        app.get('/:tid', middleware, function(req, res){
+        app.get('/:tid', middleware, middleware, function(req, res){
           res.send('GET forum ' + req.params.id + ' thread ' + req.params.tid);
         });
       });
