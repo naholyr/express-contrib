@@ -51,13 +51,17 @@ module.exports = {
     var app = express.createServer();
 
     function middlewareOne(req, res, next) {
-      console.log("middlewareOne");
       req.middlewareOneVisited = true;
       next();
     }
 
     function middlewareTwo(req, res, next) {
       req.middlewareTwoVisited = true;
+      next();
+    }
+
+    function middlewareThree(req, res, next) {
+      req.middlewareThreeVisited = true;
       next();
     }
 
@@ -76,7 +80,10 @@ module.exports = {
 
       app.namespace('/thread', function(){
         app.get('/:tid', middlewareOne, middlewareTwo, function(req, res){
-          res.send('GET forum ' + req.params.id + ' thread ' + req.params.tid);
+          res.send('GET forum ' + req.params.id + ' thread ' + req.params.tid +
+            ' with middleware 1 ' + String(req.middlewareOneVisited) +
+            ' and middleware 2 ' + String(req.middlewareTwoVisited)
+            );
         });
       });
 
@@ -84,9 +91,9 @@ module.exports = {
         res.send('DELETE forum ' + req.params.id);
       });
       
-      app.get('/middle', middlewareOne, function(req, res) {
-        res.send('GET forum ' + req.params.id + ' with middleware ' +
-          String(req.middlewareOneVisited));
+      app.get('/middle', middlewareThree, function(req, res) {
+        res.send('GET forum ' + req.params.id +
+          ' with middleware ' + String(req.middlewareThreeVisited));
       });
     });
     
@@ -104,7 +111,7 @@ module.exports = {
     
     assert.response(app,
       { url: '/forum/1/thread/50' },
-      { body: 'GET forum 1 thread 50' });
+      { body: 'GET forum 1 thread 50 with middleware 1 true and middleware 2 true' });
   
     assert.response(app,
       { url: '/forum/2', method: 'DELETE' },
